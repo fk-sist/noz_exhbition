@@ -48,7 +48,8 @@
 #define QD_TEXT_INTRO1      "突然ですが、"
 #define QD_CALL_Y1          120     // 黒板の「突然ですが、」の高さ(当時の座標。硝子は 60～318)
 #define QD_CALL_Y2          214     // 「ここで問題です！」の高さ(形式の表示の光の高さ 210 に合わせた)
-#define QD_CALL_SCALE2      0.78    // 「ここで問題です！」の大きさ(硝子の幅に収まるように)
+//#define QD_CALL_SCALE2      0.78    // 「ここで問題です！」の大きさ(硝子の幅に収まるように)
+#define QD_CALL_SCALE2      1.0     // 「ここで問題です！」の大きさ(2026-10-24 fumiya:デモの文言は、特別に黒板の幅からはみ出してよい)
 #define QD_CALL_OUT         18      // 形式の表示の終わりに、字が消えていく長さ
 #define QD_CALL_COL1        GetColor(0xE8, 0xF6, 0xFF)   // 「突然ですが、」の字(いつもの白と青の縁から変えた)
 #define QD_CALL_EDGE1       GetColor(0xA0, 0x10, 0x28)
@@ -892,9 +893,10 @@ static void Qd_DrawCall(int j) {
 	int cx = SX(680), land = j - QS_FMT_SLIDE, shake = SX(Qs_FmtShake(j));
 	int a = (j >= QZ_FMT_FRAMES - QD_CALL_OUT) ? Ease_Move(255, 0, j, QZ_FMT_FRAMES - QD_CALL_OUT, QD_CALL_OUT, EASE_IN_CUBIC) : 255;
 	Qs_FmtFxBack(j);
-	SetDrawArea(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM));
+	//SetDrawArea(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM));   // 前の形:字を硝子の中だけに
+	SetDrawArea(0, 0, XSIZE, YSIZE);   // デモの文言は、黒板の幅からはみ出してよい(fumiya)
 	{   // 「突然ですが、」:左から滑り込む
-		int x = Ease_Move(SX(QO_GLASS_X1) - 400, cx, j, 0, 14, EASE_OUT_BACK);
+		int x = Ease_Move(-600, cx, j, 0, 14, EASE_OUT_BACK);   // 画面の左の外から
 		Qs_Blend(Ease_Move(0, 255, j, 0, 8, EASE_OUT_CUBIC) * a / 255);
 		Qd_StringC(x + shake, SY(QD_CALL_Y1), QD_TEXT_INTRO1, QF_INTRO_S, 1.0, QD_CALL_COL1, QD_CALL_EDGE1);
 		Qs_BlendOff();
