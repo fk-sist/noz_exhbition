@@ -1,0 +1,567 @@
+[game]
+id       = 1
+tag      = step
+genre    = timing
+name     = とめろ 未来への1STEP
+help     = ボタンを押してスロットリールを１つ止めるだけ！
+tutorial = game_step.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 2
+tag      = Hi_game
+genre    = action
+name     = ノックアウト・ドッジ
+help     = 迫り来るノコを最後までよけ続けろ！
+tutorial = game_hi.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 3
+tag      = flushquiz
+genre    = brain
+name     = クイズ！ノズフラッシュ
+help     = 選択肢の中から正しい答えを素早く押そう！
+tutorial = game_flush.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 4
+tag      = Hi_game2
+genre    = action
+format   = team
+name     = ひーさんのバリボー
+help     = 落ちてくる球を相手コートへ打ち返せ！
+tutorial = game_hi2.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 5
+tag      = TimingKou
+genre    = timing
+format   = team
+name     = タイミング闘技場
+help     = なるべくずれないようにボタンを押そう！
+tutorial = game_timing.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 6
+tag      = anagram_rescue
+genre    = timing
+name     = 三つの弾丸
+help     = 3つのボタンを押して、言葉遊び＆レスキュー！
+tutorial = game_ginotai.tuto
+visible  = true
+isParade = true
+kids     = false
+
+
+[game]
+id       = 7
+tag      = noz
+genre    = reflex
+name     = 鉄壁のパリィ
+help     = 方向キーで盾を出して、4方向から来る弾を弾き返そう！
+tutorial = game_noz.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 8
+tag      = syun_game
+genre    = action
+name     = スクエア・スマッシュ
+help     = 自分の辺を守って、相手を撃ち抜け！
+tutorial = game_syun.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 9
+tag      = Usu_game
+genre    = action
+name     = コアハンター幽助丸
+help     = コアを基地に持ち帰れ！幽霊は壁を抜けてくるぞ！
+tutorial = game_usu.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 10
+tag      = ineq
+genre    = brain
+name     = 不等号ラッシュ
+help     = となりの数と比べて、＜ ＝ ＞ をどんどん埋めろ！
+tutorial = game_ineq.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 11
+tag      = bet
+genre    = bet
+name     = バーガーマスター・カジノ
+help     = 客の注文を予想して、自分の点数を賭けろ！
+tutorial = game_bet.tuto
+visible  = true
+isParade = true
+kids     = false
+paradeSpecial = true
+
+[game]
+id       = 12
+tag      = irabou
+genre    = action
+name     = 電流ビリビリＢＯＷ
+help     = レールに触れずに、棒をゴールまで運べ！
+tutorial = game_irabou.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 13
+tag      = digIMO
+genre    = action
+name     = 掘れ掘れ!!芋掘りシークエンス
+help     = とにかく掘れ！
+tutorial = game_kaiIMOs.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 14
+tag      = relay
+genre    = memory
+format   = team
+players  = 4
+name     = つなげ！記憶リレー
+help     = 列を覚えて、指名された人が１個ずつつなげ！
+tutorial = game_relay.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 15
+tag      = mogura
+genre    = reflex
+format   = 1vs3
+players  = 2
+name     = もぐら大脱走
+help     = １人がハンマー、残りはもぐら！　顔を出して稼げ、叩いて止めろ！
+tutorial = game_mogura.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 16
+tag      = sandwich
+genre    = sense
+players  = 1
+name     = 悪魔のサンドイッチ
+help     = 順番に具材を積め！　倒したら脱落、クラウンで完成！
+tutorial = game_sandwich.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 17
+tag      = cut
+genre    = sense
+players  = 1
+name     = 切り分けの達人
+help     = 包丁一発で指定のサイズに切り分けろ！
+tutorial = game_cut.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 18
+tag      = dash
+genre    = timing
+name     = 100m全力DASH!!
+help     = ゲージのMAXで押して加速！　100mを駆け抜けろ！
+tutorial = game_dash.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 19
+tag      = hurdle
+genre    = reflex
+name     = はちゃめちゃ障害物競争
+help     = 走りは全自動！ボタンで障害物をかわして、速くゴールしろ！
+tutorial = game_hurdle.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 20
+tag      = magball
+genre    = action
+format   = team
+players  = 2
+name     = マグネティック・ボール
+help     = 磁力で大玉を操って、相手と潰し合う
+tutorial = game_magball.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 21
+tag      = birdman
+genre    = mash
+name     = 連打人間コンテスト
+help     = 交互連打で助走、踏切で溜めて、湖の向こうまで飛べ！
+tutorial = game_birdman.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 22
+tag      = sushi
+genre    = reflex
+name     = 海斗の寿司
+help     = 注文どおりに握って流せ！早い者勝ちの回転寿司職人！
+tutorial = game_sushi.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 23
+tag      = bugmegane
+genre    = sense
+players  = 1
+name     = バグメガネの斜塔
+help     = 回るツリーにメガネを掛けるバランスゲーム
+tutorial = game_bugmegane.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 24
+tag      = halloween
+genre    = action
+name     = ハロウィン・ウィッチ
+help     = 同じ色のおばけは２倍！　空の月にご用心！
+tutorial = game_halloween.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 25
+tag      = otoge
+genre    = timing
+name     = 残酷な理不尽の音ゲー
+help     = リングが自機に重なる瞬間に押せ！リズム感を信じて最後の戦いへ！
+tutorial = game_otoge.tuto
+visible  = true
+isParade = true
+kids     = false
+paradeSpecial = true
+
+
+[game]
+id       = 26
+tag      = sankyaku
+genre    = timing
+format   = team
+players  = 1
+name     = ２人で３脚
+help     = 相方と交互に足を出せ！息を合わせて100mを駆け抜けろ！
+tutorial = game_sankyaku.tuto
+visible  = true
+isParade = true
+
+
+[game]
+id       = 27
+tag      = oonawa
+genre    = reflex
+name     = ハイパー大縄跳び
+help     = 足元に来た縄を跳び越えろ！最後の１人まで残れ！
+tutorial = game_oonawa.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 28
+tag      = trolley
+genre    = bet
+name     = トロッコ・アホベンチャー
+help     = 運だけで分かれ道を選び抜け！外れたら大破！
+tutorial = game_trolley.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 29
+tag      = niji
+genre    = action
+format   = team
+players  = 1
+name     = 虹のかけ橋
+help     = 走る係と砲台係でクリスタルの道をかけろ！
+tutorial = game_niji.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 30
+tag      = orochi
+genre    = action
+format   = 1vs3
+players  = 1
+name     = ヤマタノヲロチ
+help     = 3匹の大蛇で勇者を囲め！勇者はしっぽを斬って逃げ切れ！
+tutorial = game_orochi.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 31
+tag      = chicken
+genre    = brain
+name     = 限界チキンレース
+help     = お題に合うものを押せるだけ押せ！１個でもまちがえたら崩壊！
+tutorial = game_chicken.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 32
+tag      = tsuna
+genre    = sense
+name     = 命のつなわたり
+help     = 風吹き荒れる高層ビルの間をロープ１本で綱渡り！
+tutorial = game_tsuna.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 33
+tag      = magrescue
+genre    = brain
+name     = マグネット・レスキュー
+help     = 磁石をつないで道を作れ！おぼれる前に助け出せ！
+tutorial = game_magrescue.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 34
+tag      = rail
+genre    = brain
+name     = クレイジートレイン
+help     = 線路を回して、自分の列車をホームへ導け！
+tutorial = game_rail.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 35
+tag      = magcrush
+genre    = action
+name     = マジカルクラッシュ
+help     = 跳んで叩いて、同じ色のダルマをまとめて抜け！
+tutorial = game_magcrush.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 36
+tag      = genshi
+genre    = reflex
+format   = team
+players  = 1
+name     = とある原始人の旅路
+help     = 相方と同時に跳べ！石のお金をまんもすやまで運び切れ！
+tutorial = game_genshi.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 37
+tag      = coffee
+genre    = reflex
+name     = 中村珈琲店
+help     = 超忙しい喫茶店で注文を受けて、作って、出せ！
+tutorial = game_coffee.tuto
+visible  = true
+isParade = true
+kids     = false
+
+
+[game]
+id       = 38
+tag      = nezumi
+genre    = reflex
+name     = NEZUMIバスターズ
+help     = みんなでネズミを叩きまくれ！
+tutorial = game_nezumi.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 39
+tag      = homerun
+genre    = action
+name     = ホームランシスターズ
+help     = タメて振り抜け！当てたら一発ホームラン！
+tutorial = game_homerun.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 40
+tag      = pinball
+genre    = action
+name     = ピンボール・キャッチャー
+help     = 正面で構えて玉をキャッチ！床に流されるな！
+tutorial = game_pinball.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 41
+tag      = bazooka
+genre    = sense
+name     = バズーカクラッシャー
+help     = 流れてくる缶の山を、1発勝負のバズーカでぶっ壊せ！
+tutorial = game_bazooka.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 42
+tag      = single_timing
+genre    = timing
+name     = シングル・タイミング
+help     = ●が○に重なった所で止めろ！個人戦
+tutorial = game_stiming.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 43
+tag      = streetwarrior
+genre    = action
+name     = ストリートウォリアー６
+help     = 6人の戦士から選んで、拳で語れ！
+tutorial = game_streetwarrior.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 44
+tag      = coinget
+genre    = action
+name     = コインゲッツ
+help     = 出てくるコインを集めまくれ！
+tutorial = game_coinget.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 45
+tag      = kabocha
+genre    = mash
+name     = かぼちゃ割り
+help     = 連打でつついて割りまくれ！黒いかぼちゃには手を出すな
+tutorial = game_kabocha.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 46
+tag      = collect_items
+genre    = action
+name     = 爆風アイテムハンター
+help     = 爆弾をかわして、食べ物を集めまくれ！
+tutorial = game_collect_items.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 47
+tag      = dwell
+genre    = brain
+name     = ドゥエル・マスターズ！
+help     = カードを出して、シールドを割りまくれ！
+tutorial = game_dwell.tuto
+visible  = true
+isParade = true
+kids     = false
+
+[game]
+id       = 48
+tag      = shiji
+genre    = mash
+name     = 指示をよく見て連打しろ！
+help     = 指示のボタン「だけ」を連打しろ！「触るな」と言われたら触るな！
+tutorial = game_shiji.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 49
+tag      = tamaate
+genre    = action
+name     = 弾当てロワイヤル
+help     = 溜めて撃て！最後まで生き残れ！
+tutorial = game_tamaate.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 50
+tag      = giantcrush
+genre    = sense
+name     = 駄天使ガブリエルの福音
+help     = 柱を沈めろ！巨大ガブリエル像を倒したヤツの負け！
+tutorial = game_giantcrush.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 51
+tag      = receive_receipt
+genre    = brain
+format   = team
+name     = レシートシューター
+help     = 硬貨を撃ち込んで、金額をピッタリ０円に！
+tutorial = game_receive_receipt.tuto
+visible  = true
+isParade = true
+
+[game]
+id       = 52
+tag      = kone
+genre    = memory
+name     = 脳ミソこねこね
+help     = 見せられた数を覚えて、正確に打ち込め
+tutorial = game_kone.tuto
+visible  = true
+isParade = true
+kids     = false

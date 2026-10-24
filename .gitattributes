@@ -1,0 +1,18 @@
+# 改行の扱い(git の autocrlf の設定に関係なく、手元は CRLF、リポジトリの中は LF)
+*.cpp       text eol=crlf
+*.h         text eol=crlf
+*.sln       text eol=crlf
+*.vcxproj   text eol=crlf
+*.filters   text eol=crlf
+*.props     text eol=crlf
+*.qz        text eol=crlf
+data/**/*.txt text eol=crlf
+noz/data/*.txt text eol=crlf
+# 絵・音・フォント・動画は手を付けない
+*.png binary
+*.jpg binary
+*.ogg binary
+*.mp3 binary
+*.mp4 binary
+*.ttc binary
+*.otf binary
