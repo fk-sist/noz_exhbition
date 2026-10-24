@@ -16,7 +16,8 @@
 //   data/circle.txt の場面を上から順に流す(書き方はそのファイルの頭)。写真は circle/photos/ の中(fumiya が撮った活動の写真)。
 //   写真の場面は、写真がゆっくり寄りながら流れる(縦長の写真は、暗くした同じ写真を背景に敷いて、額に入れて出す)。
 //   場面の替わり目は、前の場面の上に次の場面がふわっと重なる。文の板は、少し遅れて滑り込む
-//   文面は学祭ポスター(サークル紹介の 1 枚)と同じ。ロゴは noz/img/nozlogo.png(スパルタの紋章)と titlenoz2.png(NOZ KINGDOM)
+//   文面は学祭ポスター(サークル紹介の 1 枚)と同じ。ロゴは noz/img/nozgames_logo.png(細い線の「NOZ Games」)と titlenoz2.png(NOZ KINGDOM)
+//   (2026-10-24 fumiya:スパルタの紋章 nozlogo.png はノズキンで使っていた仮のロゴ。サークルのロゴは nozgames_logo.png)
 // =====================================================
 
 #define CC_FILE          "./data/circle.txt"
@@ -43,6 +44,7 @@
 #define CC_KIND_PHOTO    4
 
 #define RESOURCE_GROUP_CIRCLE 20   // 写真とロゴ(紹介が終わったら解放する)
+#define CC_LOGO_SCALE  0.45f  // サークルのロゴ(1600x960)の大きさ。0.45 で幅 720px
 
 extern ResourceManager resMgr;
 
@@ -64,7 +66,8 @@ static void Circle_Load(void) {
 	FILE* fp;
 	char line[1024];
 	ResourceGroup* g = resMgr.CreateGroup(RESOURCE_GROUP_CIRCLE);
-	cc_logo = g->LoadImg("./noz/img/nozlogo.png");
+	//cc_logo = g->LoadImg("./noz/img/nozlogo.png");
+	cc_logo = g->LoadImg("./noz/img/nozgames_logo.png");   // 白い線で描いてある(紺の地にそのまま置く)
 	cc_kingdom = g->LoadImg("./noz/img/titlenoz2.png");
 	cc_glow = g->LoadImg("./noz/img/title_glow.png");
 	cc_num = 0;
@@ -197,7 +200,7 @@ static void Circle_Shade(int y1, int y2, int alpha) {
 
 // ---- 場面ごとの文 ----
 
-// タイトル:紺の地に、ゆっくり回る光の筋、紋章のロゴ、「ゲーム制作サークル」、「ノズゲは本気だ」(本気 にルビ)
+// タイトル:紺の地に、ゆっくり回る光の筋、サークルのロゴ、「ゲーム制作サークル」、「ノズゲは本気だ」(本気 にルビ)
 static void Circle_DrawTitle(const CircleScene* s, int t, int a) {
 	int y, k, cx = SCREEN_WIDTH / 2;
 	for (y = 0; y < SCREEN_HEIGHT; y += 4) {   // 紺の地(上が少し明るい)
@@ -212,8 +215,9 @@ static void Circle_DrawTitle(const CircleScene* s, int t, int a) {
 	}
 	SetDrawBright(255, 255, 255);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	{   // 紋章:大きい所から縮んで収まる
-		float sc = Ease_MoveF(1.6f, 0.82f, t, 0, 24, EASE_OUT_BACK);
+	{   // ロゴ:大きい所から縮んで収まる
+		//float sc = Ease_MoveF(1.6f, 0.82f, t, 0, 24, EASE_OUT_BACK);   // 前の形(紋章 512x502)
+		float sc = Ease_MoveF(0.88f, CC_LOGO_SCALE, t, 0, 24, EASE_OUT_BACK);
 		int la = Ease_Move(0, a, t, 0, 16, EASE_OUT_CUBIC);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, la);
 		DrawRotaGraph(cx, 380, sc, 0.0, cc_logo, TRUE);

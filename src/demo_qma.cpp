@@ -23,7 +23,9 @@
 //     絵は quiz_academy の UI の部品(qma/img/ui/quiz/。tools/gen_ui.py が作った物)と字の絵(qma/img/label/。gen_labels.py)。
 //     座標・長さ・動きは game/quiz_scene*.cpp と同じ値(当時の 1360x768 の座標を SX / SY で広げる)。描く関数は名前も中身もなるべくそのまま写した(Qs_～)
 //   流れ(quiz_scene の段階に合わせた):
-//     突然ですが(このデモだけ)→ 開幕(黒板が落ちてくる・ゲージが伸びる)→ 間 → 形式の表示(光の裂け目から形式名)
+//     開幕(黒板が落ちてくる・ゲージが伸びる)→ 間 → 形式の表示の所で、代わりに黒板に「突然ですが、ここで問題です！」をどーんと(このデモだけ)
+//       (2026-10-24 fumiya:黒板をおろしてから出す。「○○クイズ」の形式の表示の演出はいらない。色はいつもの形式名の色と変えた)
+//       前の形:突然ですが(部屋の絵の上。黒板の前)→ 開幕 → 間 → 形式の表示(光の裂け目から形式名)
 //     → 出題の準備(板が浮いてくる)→ 出題(問題文が流れる・ゲージが減る・残り 5 秒から刻む)→ 時間切れ
 //     → 黒板が暗くなって「正解は 静岡理工科大学の 授業の中で！」(このデモだけ。「時間切れ」の字は出さない)
 //   出す問題:qma/quiz/packs/unix.qz の、○×・四択・連想・並べ替えのうち、絵の無い問題(問題文 4 行まで)。形式はまんべんなく選ぶ
@@ -44,6 +46,14 @@
 #define QD_OUTRO_AT         24      // 時間切れから、締めの字が出始めるまで
 #define QD_OUTRO_STEP       18      // 締めの字の行ごとのずらし
 #define QD_TEXT_INTRO1      "突然ですが、"
+#define QD_CALL_Y1          120     // 黒板の「突然ですが、」の高さ(当時の座標。硝子は 60～318)
+#define QD_CALL_Y2          214     // 「ここで問題です！」の高さ(形式の表示の光の高さ 210 に合わせた)
+#define QD_CALL_SCALE2      0.78    // 「ここで問題です！」の大きさ(硝子の幅に収まるように)
+#define QD_CALL_OUT         18      // 形式の表示の終わりに、字が消えていく長さ
+#define QD_CALL_COL1        GetColor(0xE8, 0xF6, 0xFF)   // 「突然ですが、」の字(いつもの白と青の縁から変えた)
+#define QD_CALL_EDGE1       GetColor(0xA0, 0x10, 0x28)
+#define QD_CALL_COL2        GetColor(0xFF, 0xE6, 0x3C)   // 「ここで問題です！」の字(いつもの形式名の赤と金の縁から、金と深い赤の縁に)
+#define QD_CALL_EDGE2       GetColor(0x90, 0x08, 0x18)
 #define QD_TEXT_INTRO2      "ここで問題です！"
 #define QD_TEXT_OUTRO1      "正解は"
 #define QD_TEXT_OUTRO2      "静岡理工科大学の"
@@ -875,6 +885,47 @@ static void Qd_DrawIntro(int f) {
 	}
 }
 
+// 突然ですが、ここで問題です!(黒板をおろしたあと、形式の表示の代わりに。硝子の上)
+//   j は形式の表示の頭からのフレーム。光の束が走る(形式の表示と同じ)→「突然ですが、」が滑り込む →「ここで問題です！」が叩きつけられて、
+//   決まった瞬間に横一文字の光・黒板が白く光る・横長の光の輪・揺れ(形式の表示が決まる時と同じ時刻 QS_FMT_SLIDE)
+static void Qd_DrawCall(int j) {
+	int cx = SX(680), land = j - QS_FMT_SLIDE, shake = SX(Qs_FmtShake(j));
+	int a = (j >= QZ_FMT_FRAMES - QD_CALL_OUT) ? Ease_Move(255, 0, j, QZ_FMT_FRAMES - QD_CALL_OUT, QD_CALL_OUT, EASE_IN_CUBIC) : 255;
+	Qs_FmtFxBack(j);
+	SetDrawArea(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM));
+	{   // 「突然ですが、」:左から滑り込む
+		int x = Ease_Move(SX(QO_GLASS_X1) - 400, cx, j, 0, 14, EASE_OUT_BACK);
+		Qs_Blend(Ease_Move(0, 255, j, 0, 8, EASE_OUT_CUBIC) * a / 255);
+		Qd_StringC(x + shake, SY(QD_CALL_Y1), QD_TEXT_INTRO1, QF_INTRO_S, 1.0, QD_CALL_COL1, QD_CALL_EDGE1);
+		Qs_BlendOff();
+	}
+	if (land >= -10) {   // 「ここで問題です！」:大きい所から叩きつけられる(収まるのが land = 0)
+		int t = land + 10;
+		double sc = QD_CALL_SCALE2 * Ease_MoveF(2.4f, 1.0f, t, 0, 10, EASE_IN_CUBIC);
+		if (t < 10) { Qs_BlendAdd(90); Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc * 1.25, GetColor(255, 200, 120), GetColor(255, 120, 60)); }   // 来る間の残像
+		Qs_Blend(Ease_Move(0, 255, t, 0, 6, EASE_OUT_CUBIC) * a / 255);
+		Qd_StringC(cx + shake, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, QD_CALL_COL2, QD_CALL_EDGE2);
+		if (land >= 0 && land < 30) {   // 収まった瞬間、字が白く光って消えていく
+			Qs_BlendAdd((30 - land) * 8 * a / 255);
+			Qd_StringC(cx + shake, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, GetColor(255, 255, 255), GetColor(255, 255, 255));
+		}
+		if (land >= 40 && (land - 40) % 50 < 16) {   // そのあと、ときどき字の上を光が走る(字をもう一度、加算で薄く)
+			Qs_BlendAdd(Ease_Move(120, 0, (land - 40) % 50, 0, 16, EASE_OUT_CUBIC) * a / 255);
+			Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, GetColor(255, 240, 160), GetColor(255, 120, 80));
+		}
+		Qs_BlendOff();
+	}
+	if (land >= 0 && land < QS_FMT_RING_DUR) {   // 決まった瞬間に、横長の光の輪が広がる(Qs_FmtReveal と同じ。色は字に合わせて金)
+		float rx = Ease_MoveF((float)SX(60), (float)SX(QS_FMT_RING_W), land, 0, QS_FMT_RING_DUR, EASE_OUT_CUBIC), ry = rx * 0.28f;
+		int ra = Ease_Move(220, 0, land, 0, QS_FMT_RING_DUR, EASE_IN_CUBIC);
+		Qs_BlendAdd(ra / 3); DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, GetColor(255, 180, 60), FALSE, 10.0f);
+		Qs_BlendAdd(ra);     DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, GetColor(255, 255, 255), FALSE, 2.5f);
+		Qs_BlendOff();
+	}
+	SetDrawArea(0, 0, XSIZE, YSIZE);
+	Qs_FmtFxFront(j);
+}
+
 // 正解は 静岡理工科大学の 授業の中で!(時間切れのあと、暗くした黒板の硝子の上)
 static void Qd_DrawOutro(int f) {
 	int t = f - QD_OUTRO_AT, k;
@@ -915,7 +966,8 @@ static int Qma_Begin(int arg) {
 	qd_total = 0;
 	qs_glow_on = 0;
 	Effect_Open_Stop();
-	Qd_Phase(QD_PH_INTRO);
+	//Qd_Phase(QD_PH_INTRO);
+	Qd_Phase(QD_PH_OPEN);   // (2026-10-24 fumiya:突然ですが は、黒板をおろしてから。形式の表示の所で出す)
 	qd_bgm_vol = 1.0f;
 	if (qd_bgm >= 0) { ChangeVolumeSoundMem(QD_BGM_VOLUME, qd_bgm); PlaySoundMem(qd_bgm, DX_PLAYTYPE_LOOP, TRUE); }
 	return 1;
@@ -1001,7 +1053,10 @@ static void Qma_Draw(void) {
 	// 選択肢(出題の準備から)
 	if (qd_ph >= QD_PH_SERVE) Qs_DrawChoices(qd_ph == QD_PH_SERVE, f);
 
-	// 形式の表示
+	// 形式の表示の所:このデモでは「突然ですが、ここで問題です！」(2026-10-24 fumiya:「○○クイズ」の表示の演出はいらない)
+	if (qd_ph == QD_PH_FMT) Qd_DrawCall(f);
+#if 0
+	// 前の形:形式の表示
 	if (qd_ph == QD_PH_FMT) {
 		Qs_FmtFxBack(f);
 		if (f >= QS_FMT_GENRE) {   // ジャンル名:大きい所から縮んで決まる
@@ -1013,6 +1068,7 @@ static void Qma_Draw(void) {
 		qs_shift_x = 0;
 		Qs_FmtFxFront(f);
 	}
+#endif
 
 	// 時間切れのあと
 	if (qd_ph == QD_PH_OUTRO) Qd_DrawOutro(f);
