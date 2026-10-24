@@ -51,10 +51,17 @@
 //#define QD_CALL_SCALE2      0.78    // 「ここで問題です！」の大きさ(硝子の幅に収まるように)
 #define QD_CALL_SCALE2      1.0     // 「ここで問題です！」の大きさ(2026-10-24 fumiya:デモの文言は、特別に黒板の幅からはみ出してよい)
 #define QD_CALL_OUT         18      // 形式の表示の終わりに、字が消えていく長さ
-#define QD_CALL_COL1        GetColor(0xE8, 0xF6, 0xFF)   // 「突然ですが、」の字(いつもの白と青の縁から変えた)
-#define QD_CALL_EDGE1       GetColor(0xA0, 0x10, 0x28)
-#define QD_CALL_COL2        GetColor(0xFF, 0xE6, 0x3C)   // 「ここで問題です！」の字(いつもの形式名の赤と金の縁から、金と深い赤の縁に)
-#define QD_CALL_EDGE2       GetColor(0x90, 0x08, 0x18)
+//#define QD_CALL_COL1        GetColor(0xE8, 0xF6, 0xFF)   // 「突然ですが、」の字(いつもの白と青の縁から変えた)
+//#define QD_CALL_EDGE1       GetColor(0xA0, 0x10, 0x28)
+//#define QD_CALL_COL2        GetColor(0xFF, 0xE6, 0x3C)   // 「ここで問題です！」の字(いつもの形式名の赤と金の縁から、金と深い赤の縁に)
+//#define QD_CALL_EDGE2       GetColor(0x90, 0x08, 0x18)
+// (2026-10-24 fumiya:デモの文言だけ、緑系に)
+#define QD_CALL_COL1        GetColor(0xE6, 0xFF, 0xEC)   // 「突然ですが、」「正解は」の字(薄い緑の白と、深い緑の縁)
+#define QD_CALL_EDGE1       GetColor(0x0C, 0x5A, 0x28)
+#define QD_CALL_COL2        GetColor(0xB4, 0xFF, 0x3C)   // 「ここで問題です！」「静岡理工科大学の」「授業の中で！」の字(明るい黄緑と、濃い緑の縁)
+#define QD_CALL_EDGE2       GetColor(0x0A, 0x46, 0x14)
+#define QD_CALL_GLOW        GetColor(120, 255, 120)      // 残像・光の輪・ときどき走る光の色(緑)
+#define QD_CALL_GLOW_EDGE   GetColor(40, 200, 90)
 #define QD_TEXT_INTRO2      "ここで問題です！"
 #define QD_TEXT_OUTRO1      "正解は"
 #define QD_TEXT_OUTRO2      "静岡理工科大学の"
@@ -904,7 +911,8 @@ static void Qd_DrawCall(int j) {
 	if (land >= -10) {   // 「ここで問題です！」:大きい所から叩きつけられる(収まるのが land = 0)
 		int t = land + 10;
 		double sc = QD_CALL_SCALE2 * Ease_MoveF(2.4f, 1.0f, t, 0, 10, EASE_IN_CUBIC);
-		if (t < 10) { Qs_BlendAdd(90); Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc * 1.25, GetColor(255, 200, 120), GetColor(255, 120, 60)); }   // 来る間の残像
+		//if (t < 10) { Qs_BlendAdd(90); Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc * 1.25, GetColor(255, 200, 120), GetColor(255, 120, 60)); }   // 来る間の残像
+		if (t < 10) { Qs_BlendAdd(90); Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc * 1.25, QD_CALL_GLOW, QD_CALL_GLOW_EDGE); }   // 来る間の残像
 		Qs_Blend(Ease_Move(0, 255, t, 0, 6, EASE_OUT_CUBIC) * a / 255);
 		Qd_StringC(cx + shake, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, QD_CALL_COL2, QD_CALL_EDGE2);
 		if (land >= 0 && land < 30) {   // 収まった瞬間、字が白く光って消えていく
@@ -913,14 +921,16 @@ static void Qd_DrawCall(int j) {
 		}
 		if (land >= 40 && (land - 40) % 50 < 16) {   // そのあと、ときどき字の上を光が走る(字をもう一度、加算で薄く)
 			Qs_BlendAdd(Ease_Move(120, 0, (land - 40) % 50, 0, 16, EASE_OUT_CUBIC) * a / 255);
-			Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, GetColor(255, 240, 160), GetColor(255, 120, 80));
+			//Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, GetColor(255, 240, 160), GetColor(255, 120, 80));
+			Qd_StringC(cx, SY(QD_CALL_Y2), QD_TEXT_INTRO2, QF_INTRO_L, sc, QD_CALL_GLOW, QD_CALL_GLOW_EDGE);
 		}
 		Qs_BlendOff();
 	}
-	if (land >= 0 && land < QS_FMT_RING_DUR) {   // 決まった瞬間に、横長の光の輪が広がる(Qs_FmtReveal と同じ。色は字に合わせて金)
+	if (land >= 0 && land < QS_FMT_RING_DUR) {   // 決まった瞬間に、横長の光の輪が広がる(Qs_FmtReveal と同じ。色は字に合わせて緑)
 		float rx = Ease_MoveF((float)SX(60), (float)SX(QS_FMT_RING_W), land, 0, QS_FMT_RING_DUR, EASE_OUT_CUBIC), ry = rx * 0.28f;
 		int ra = Ease_Move(220, 0, land, 0, QS_FMT_RING_DUR, EASE_IN_CUBIC);
-		Qs_BlendAdd(ra / 3); DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, GetColor(255, 180, 60), FALSE, 10.0f);
+		//Qs_BlendAdd(ra / 3); DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, GetColor(255, 180, 60), FALSE, 10.0f);
+		Qs_BlendAdd(ra / 3); DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, QD_CALL_GLOW, FALSE, 10.0f);
 		Qs_BlendAdd(ra);     DrawOvalAA((float)cx, (float)SY(QD_CALL_Y2), rx, ry, 64, GetColor(255, 255, 255), FALSE, 2.5f);
 		Qs_BlendOff();
 	}
