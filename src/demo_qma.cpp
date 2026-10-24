@@ -929,10 +929,12 @@ static void Qd_DrawCall(int j) {
 }
 
 // 正解は 静岡理工科大学の 授業の中で!(時間切れのあと、暗くした黒板の硝子の上)
+//   (2026-10-24 fumiya:「突然ですが」と同じく、黒板の幅からはみ出してよい。字の大きさ・色も「突然ですが」にそろえた)
 static void Qd_DrawOutro(int f) {
 	int t = f - QD_OUTRO_AT, k;
 	const char* s[3] = { QD_TEXT_OUTRO1, QD_TEXT_OUTRO2, QD_TEXT_OUTRO3 };
-	const int cy[3] = { 110, 176, 252 };   // 当時の座標(硝子 60～318 の中)
+	//const int cy[3] = { 110, 176, 252 };   // 当時の座標(硝子 60～318 の中)
+	const int cy[3] = { 92, 172, 270 };      // 当時の座標(大きい字にしたので、間を広げた。下の行は硝子の下の縁に少しかかる)
 	int dim = Ease_Move(0, QS_TIMEUP_DIM, f, 0, QS_TIMEUP_DIM_IN, EASE_OUT_CUBIC);
 	Qs_Blend(dim); DrawBox(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM), GetColor(0x1C, 0x22, 0x2E), TRUE); Qs_BlendOff();
 	if (t < 0) return;
@@ -942,13 +944,16 @@ static void Qd_DrawOutro(int f) {
 		if (lt < 0) continue;
 		sc = Ease_MoveF(1.6f, 1.0f, lt, 0, 10, EASE_OUT_BACK);
 		Qs_Blend(Ease_Move(0, 255, lt, 0, 8, EASE_OUT_CUBIC));
-		if (k == 0) Qd_StringC(SX(680), SY(cy[k]), s[k], QF_OUTRO_S, sc, QC_WHITE, GetColor(0x18, 0x40, 0xC0));
-		else Qd_StringC(SX(680), SY(cy[k]), s[k], QF_OUTRO_L, sc, GetColor(0xD8, 0x14, 0x14), GetColor(0xF0, 0xC4, 0x48));
-		if (lt >= 4 && lt < 26) { Qs_BlendAdd((26 - lt) * 10); Qd_StringC(SX(680), SY(cy[k]), s[k], (k == 0) ? QF_OUTRO_S : QF_OUTRO_L, 1.0, GetColor(255, 255, 255), GetColor(255, 255, 255)); }
+		//if (k == 0) Qd_StringC(SX(680), SY(cy[k]), s[k], QF_OUTRO_S, sc, QC_WHITE, GetColor(0x18, 0x40, 0xC0));
+		//else Qd_StringC(SX(680), SY(cy[k]), s[k], QF_OUTRO_L, sc, GetColor(0xD8, 0x14, 0x14), GetColor(0xF0, 0xC4, 0x48));
+		//if (lt >= 4 && lt < 26) { Qs_BlendAdd((26 - lt) * 10); Qd_StringC(SX(680), SY(cy[k]), s[k], (k == 0) ? QF_OUTRO_S : QF_OUTRO_L, 1.0, GetColor(255, 255, 255), GetColor(255, 255, 255)); }
+		if (k == 0) Qd_StringC(SX(680), SY(cy[k]), s[k], QF_INTRO_S, sc, QD_CALL_COL1, QD_CALL_EDGE1);
+		else Qd_StringC(SX(680), SY(cy[k]), s[k], QF_INTRO_L, sc * QD_CALL_SCALE2, QD_CALL_COL2, QD_CALL_EDGE2);
+		if (lt >= 4 && lt < 26) { Qs_BlendAdd((26 - lt) * 10); Qd_StringC(SX(680), SY(cy[k]), s[k], (k == 0) ? QF_INTRO_S : QF_INTRO_L, (k == 0) ? 1.0 : QD_CALL_SCALE2, GetColor(255, 255, 255), GetColor(255, 255, 255)); }
 		Qs_BlendOff();
 	}
-	SetDrawArea(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM));
-	Qs_FxFlare((float)SX(680), (float)SY(cy[2]), (float)(SX(QO_GLASS_X2) - SX(QO_GLASS_X1)) / 2, t - 2 * QD_OUTRO_STEP - 6);
+	//SetDrawArea(SX(QO_GLASS_X1), SY(QO_GLASS_Y1), SX(QO_GLASS_X2), SY(QO_GLASS_BOTTOM));   // 前の形:光を硝子の中だけに
+	Qs_FxFlare((float)SX(680), (float)SY(cy[2]), (float)XSIZE * 0.45f, t - 2 * QD_OUTRO_STEP - 6);   // 字と同じく、黒板からはみ出してよい
 	SetDrawArea(0, 0, XSIZE, YSIZE);
 }
 
