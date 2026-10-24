@@ -30,11 +30,11 @@
 
 - `src/main.cpp`:WinMain・フォント・60fps のループ。Esc で終了。マウスを消し、モニターが消えないように(SetThreadExecutionState)。
 - `src/director.cpp`(`demo.h`):デモの巡回。`data/demos.txt` の順に流し、間は暗転。下の帯(案内の文)と BGM。デモを足す時は `DemoDef` を作って `demo_table[]` に足す。
-- デモ:`demo_noz.cpp`(ブース案内・ゲーム紹介カード)、`demo_qma.cpp`(突然ですが、ここで問題です)、`demo_circle.cpp`(サークル紹介。写真)、`demo_pv.cpp`(movie/ の動画)。
+- デモ:`demo_noz.cpp`(ブース案内・ゲーム紹介カード)、`demo_qma.cpp`(突然ですが、ここで問題です)、`demo_circle.cpp`(サークル紹介。写真)、`demo_pv.cpp`(PV。DXLib の描画でその場で作る。動画のファイルは使わない。2026-10-24 fumiya)。
 - 写してきた部品:`src/qz/`(quiz_academy の core/。問題パックの読み込みと出題の準備)、`ui_ease`・`effect_open`(quiz_academy の game/)、`gameGenre`・`resource_manager.h`(noz_kingdom)、
   ノズキンのタイトルの景色とロゴの描き方(`demo_noz.cpp` の中。noz_kingdom の BootManager.cpp から)。元を直したら、こっちにも写し直すか考える。
-- 素材:`qma/`(quiz_academy から)、`noz/`(noz_kingdom から。クリップ `noz/img/thumb/`・ゲームの一覧 `noz/data/gamelist.txt`)、`circle/photos/`(サークルの写真。長辺 1920 に縮めた物)、`movie/`(PV。fumiya が置く)。
-- 文言:`data/guide.txt`(案内・下の帯)、`data/circle.txt`(サークル紹介の場面)。調整値は各ファイルの冒頭の `#define`。
+- 素材:`qma/`(quiz_academy から)、`noz/`(noz_kingdom から。クリップ `noz/img/thumb/`・ゲームの一覧 `noz/data/gamelist.txt`)、`circle/photos/`(サークルの写真。長辺 1920 に縮めた物)。
+- 文言:`data/guide.txt`(案内・下の帯)、`data/circle.txt`(サークル紹介の場面)、`data/pv.txt`(PV)。ゲームの数は、すぐ増えるのではっきり書かない(「50本以上」のように。2026-10-24 fumiya)。調整値は各ファイルの冒頭の `#define`。
 
 ## コーディング規約
 

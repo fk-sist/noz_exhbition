@@ -574,13 +574,15 @@ static void NozGuide_Draw(void) {
 		}
 	}
 
-	// その下の文:1 行ずつ右から滑り込む(%d はゲームの数)
+	// その下の文:1 行ずつ右から滑り込む
+	//   (2026-10-24 fumiya:ゲームの数ははっきり出さない。すぐ増えるので、文の方に「50本以上」と書く。前は %d にゲームの数を入れていた)
 	for (i = 0; i < guide.sub_num; i++) {
 		int st = pt - 40 - i * 12, tw, x;
 		char buf[GUIDE_TEXT_LEN + 16];
 		float r, e;
 		if (st < 0) continue;
-		_snprintf(buf, sizeof(buf), guide.sub[i], nz_game_num);
+		//_snprintf(buf, sizeof(buf), guide.sub[i], nz_game_num);
+		_snprintf(buf, sizeof(buf), "%s", guide.sub[i]);
 		buf[sizeof(buf) - 1] = '\0';
 		tw = GetDrawStringWidthToHandle(buf, (int)strlen(buf), Fonts[5]);
 		r = (st < 16) ? st / 16.0f : 1.0f;
@@ -745,3 +747,40 @@ static void NozCards_End(void) {
 }
 
 const DemoDef demo_noz_cards = { "noz_cards", NozCards_Begin, NozCards_Update, NozCards_Draw, NozCards_End, 1, DEMO_BGM_NOZ };
+
+
+// =====================================================
+// PV から借りる部品(demo.h。2026-10-24)
+// =====================================================
+
+void Noz_PvPrepare(void) {
+	Noz_LoadCommon();
+	Noz_LoadList();
+}
+
+int Noz_PvImg(int no) {
+	if (no < 0 || no >= 13) return -1;
+	return nz_img[no];
+}
+
+// 関数の役割:ゲーム紹介カードと同じ紹介の順の続きから、クリップを 1 本読む(カードと PV で同じゲームばかりにならないように)
+int Noz_PvLoadClip(int group, int* frames, char* name, int cap) {
+	ResourceGroup* g;
+	char path[256];
+	int gi;
+	if (nz_order_num == 0) return 0;
+	if (nz_order_pos >= nz_order_num) Noz_Shuffle();
+	gi = nz_order[nz_order_pos++];
+	Noz_ClipPath(nz_games[gi].tag, path, sizeof(path));
+	g = resMgr.CreateGroup(group);
+	if (g->LoadDivImg(path, NZ_CLIP_FRAMES, NZ_CLIP_COLS, NZ_CLIP_ROWS, NZ_CLIP_W, NZ_CLIP_H, frames) == -1) return 0;
+	strncpy(name, nz_games[gi].name, cap - 1);
+	name[cap - 1] = '\0';
+	return 1;
+}
+
+void Noz_PvBackdrop(float zoom, float focusX, float focusY, float dawn, int t) { Title_DrawBackdrop(zoom, focusX, focusY, dawn, t); }
+
+void Noz_PvLogo(int no, int cx, int cy, int t, int startT) { Title_DrawLogo(no, nz_img[6 + no], cx, cy, t, startT); }
+
+int Noz_PvLogoDur(int no) { return Title_LogoWipeDur(nz_img[6 + no]); }

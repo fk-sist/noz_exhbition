@@ -32,7 +32,18 @@ extern const DemoDef demo_noz_guide;    // ƒmƒYƒLƒ“:ƒu[ƒXˆÄ“à(ƒ^ƒCƒgƒ‹‚ÌŒiF‚Æƒ
 extern const DemoDef demo_noz_cards;    // ƒmƒYƒLƒ“:ƒQ[ƒ€Ğ‰îƒJ[ƒh
 extern const DemoDef demo_qma;          // ƒNƒCƒY OS~UNIX:“Ë‘R‚Å‚·‚ªA‚±‚±‚Å–â‘è‚Å‚·
 extern const DemoDef demo_circle;       // NOZ GAMES:ƒT[ƒNƒ‹Ğ‰î
-extern const DemoDef demo_pv;           // PV(movie/ ‚Ì“®‰æ)
+extern const DemoDef demo_pv;           // PV(DXLib ‚Ì•`‰æ‚Å‚»‚Ìê‚Åì‚éB2026-10-24 ‚É“®‰æ‚©‚ç‘Ö‚¦‚½)
+
+// ƒmƒYƒLƒ“‚Ì•”•i‚ğ PV ‚©‚çØ‚è‚é(demo_noz.cppB2026-10-24)
+#define NOZ_CLIP_FRAMES 120   // ƒNƒŠƒbƒv‚ÌƒRƒ}”(demo_noz.cpp ‚Ì NZ_CLIP_FRAMES ‚Æ“¯‚¶)
+#define NOZ_CLIP_FPS    12    // ƒNƒŠƒbƒv‚Ì‘¬‚³(NZ_CLIP_FPS ‚Æ“¯‚¶)
+#define NOZ_NAME_LEN    128   // ƒQ[ƒ€‚Ì–¼‘O‚Ì’·‚³
+void Noz_PvPrepare(void);                                       // ƒ^ƒCƒgƒ‹‚ÌŠG‚ÆƒQ[ƒ€‚Ìˆê——‚ğ“Ç‚Ş(“Ç‚ñ‚Å‚ ‚ê‚Î‰½‚à‚µ‚È‚¢)
+int  Noz_PvImg(int no);                                         // ƒ^ƒCƒgƒ‹‚ÌŠG(BootManager.cpp ‚Æ“¯‚¶”Ô†B9 Œõ‚Ì‹Ê / 10 \š‚Ì‹P‚« / 11 Œõ‚Ì—Ö / 12 Œõ‚Ì’Œ)
+int  Noz_PvLoadClip(int group, int* frames, char* name, int cap);   // Ğ‰î‚Ì‡‚Ì‘±‚«‚ÌƒNƒŠƒbƒv‚ğ 1 –{Agroup ‚É“Ç‚ŞB–ß‚è’l:“Ç‚ß‚½‚ç 1
+void Noz_PvBackdrop(float zoom, float focusX, float focusY, float dawn, int t);   // ƒ^ƒCƒgƒ‹‚ÌŒiF
+void Noz_PvLogo(int no, int cx, int cy, int t, int startT);     // ƒ^ƒCƒgƒ‹‚ÌƒƒS(0 –äÍ / 1 –{‘è)
+int  Noz_PvLogoDur(int no);                                     // ‚»‚ÌƒƒS‚ğ•`‚«I‚í‚é‚Ü‚Å‚ÌƒtƒŒ[ƒ€”
 
 // „‰ñ(director.cpp)
 void Director_Init(void);

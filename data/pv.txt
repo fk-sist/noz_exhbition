@@ -1,0 +1,16 @@
+# PV の文(demo_pv.cpp が読む。CP932 + CRLF で保存すること)。key: 値
+#   ゲームの数は、すぐ増えるのではっきり書かない(2026-10-24 fumiya)。count は「ここまで回して止める数」
+#   文は、学祭ポスター(サークル紹介の 1 枚)の文面と、ブース案内から
+
+engine1:    ゲームエンジン
+engine2:    使わない。
+code1:      全部、
+code2:      １から書く。
+code_sub:   C/C++ × DXライブラリ
+cut_label:  NOZ KINGDOM MINIGAME
+count_head: ミニゲーム
+count:      50
+count_tail: 本以上！
+count_sub:  いまも 増殖中
+party:      最大４人で 対戦！
+end_sub:    ゲーム制作サークル NOZ GAMES

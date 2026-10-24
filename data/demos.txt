@@ -4,13 +4,13 @@
 #   noz_cards   ノズキン:ゲーム紹介カード(数 = 紹介する本数。1 本 7 秒。書かなければ 4)
 #   qma         クイズ OS×UNIX:突然ですが、ここで問題です(1 問。約 40 秒)
 #   circle      NOZ GAMES のサークル紹介(写真。data/circle.txt)
-#   pv          PV(movie/ の動画。数 = 続けて流す本数。動画が無ければ飛ばす)
+#   pv          PV(DXLib の描画でその場で作る。約 38 秒。曲つき。文は data/pv.txt)
 #   同じデモを何回書いてもよい(ゲーム紹介カードは、書くたびに続きのゲームを紹介する)
 
 noz_guide
 noz_cards   4
 qma
 circle
-pv          1
+pv
 noz_guide
 noz_cards   4

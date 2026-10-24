@@ -61,7 +61,10 @@ static void InitFonts(void) {
 	Fonts[2] = CreateFontToHandle(NULL, 72, 3);
 	Fonts[4] = CreateFontToHandle("トガリテ Heavy", 72, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	Fonts[8] = CreateFontToHandle("トガリテ Heavy", 96, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	SetFontCacheCharNum(16);   // 200px 級(PV の一番大きい字)
+	Fonts[9] = CreateFontToHandle("トガリテ Heavy", 220, 3, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 	SetFontCacheCharNum(256);
+	Fonts[10] = CreateFontToHandle("Consolas", 26, 2, DX_FONTTYPE_ANTIALIASING);   // PV の流れるソース(等幅。無ければ DXLib のいつもの字)
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

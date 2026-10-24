@@ -18,4 +18,4 @@ photo   4  photo08.jpg
 pillar  6  photo07.jpg  03|将来の武器にする|「基礎から作れる」力は、卒業後のキャリアでも確かな強みになる。
 photo   4  photo05.jpg
 photo   4  photo01.jpg
-making  7  photo09.jpg  いま作っているもの|C/C++ と DXライブラリで作る、最大４人のパーティミニゲーム集。|ミニゲームは 50本超、いまも増殖中！
+making  7  photo09.jpg  いま作っているもの|C/C++ と DXライブラリで作る、最大４人のパーティミニゲーム集。|ミニゲームは 50本以上、いまも増殖中！
