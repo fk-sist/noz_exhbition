@@ -5,11 +5,15 @@
 #   (x64/ は .gitignore で外しているので、一番上に写した exe だけを上げる)
 set -e
 cd "$(dirname "$0")/.."
-EXE=x64/Release/NozExhibition.exe
-if [ ! -f "$EXE" ]; then
-	echo "$EXE が無い。Release / x64 でビルドしてから。"
+# exe を探す(2026-10-24 fumiya:あるのに無いと言われた。決め打ちをやめて、x64 の下の exe を全部見て、一番新しい物を使う)
+#EXE=x64/Release/NozExhibition.exe
+EXE=$(ls -t x64/Release/*.exe x64/*/*.exe x64/*/*/*.exe 2>/dev/null | head -1 || true)
+if [ -z "$EXE" ]; then
+	echo "x64 の下に exe が見つからへん。今いる所:$(pwd)"
+	echo "x64 の中身:"; ls -R x64 2>/dev/null | head -40
 	exit 1
 fi
+echo "使う exe:$EXE"
 cp "$EXE" ./NozExhibition.exe
 git add NozExhibition.exe
 if git diff --cached --quiet; then
